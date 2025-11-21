@@ -35,6 +35,7 @@ console.log("Password recibido:", req.body.password);
         user: {
           id: user._id,
           username: user.username,
+          apellido: user.apellido,
           email: user.email,
           birthdate: user.birthdate,
         }
@@ -46,7 +47,7 @@ console.log("Password recibido:", req.body.password);
   }
 
 async register(req, res) {
-    const { username, email, password, birthdate} = req.body;
+    const { username, apellido, email, password, birthdate} = req.body;
 
     try {
       //Check if the email is already registered
@@ -62,6 +63,7 @@ async register(req, res) {
       //Create the new user
       const newUser = await UserDAO.create({
         username,
+        apellido,
         email,
         password: hashedPassword, // Store hashed password
         birthdate,
@@ -72,6 +74,7 @@ async register(req, res) {
         user: {
           id: newUser._id,
           username: newUser.username,
+          apellido: newUser.apellido,
           email: newUser.email,
           birthdate: newUser.birthdate,
         }
@@ -83,10 +86,10 @@ async register(req, res) {
   }
   async update(req, res) {
   const { id } = req.params;
-  const { username, email, birthdate, password } = req.body;
+  const { username, apellido, email, birthdate, password } = req.body;
 
   try {
-    const updateData = { username, email, birthdate };
+    const updateData = { username, apellido, email, birthdate };
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
@@ -104,6 +107,7 @@ async register(req, res) {
       user: {
         id: updatedUser._id,
         username: updatedUser.username,
+        apellido: updatedUser.apellido,
         email: updatedUser.email,
         birthdate: updatedUser.birthdate,
         updatedAt: updatedUser.updatedAt,
