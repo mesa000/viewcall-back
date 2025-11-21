@@ -43,4 +43,4 @@ const UserSchema = new mongoose.Schema(
  * Mongoose model for the User collection.
  * Provides an interface to interact with User documents in MongoDB.
  */
-module.exports = mongoose.model("User_movie", UserSchema);
+module.exports = mongoose.model("User_Call", UserSchema);

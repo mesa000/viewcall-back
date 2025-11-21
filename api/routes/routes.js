@@ -20,9 +20,6 @@ const passRoutes = require("./passRoutes");
 router.use("/users", userRoutes);
 router.use("/auth", authRoutes);
 router.use("/password", (passRoutes));
-router.use("/favorites", favoritesRoutes);
-router.use("/comments", commentRoutes);
-router.use("/ratings", ratingRoutes);
 
 /**
  * Export the main router instance.
