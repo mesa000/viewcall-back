@@ -17,7 +17,7 @@ exports.forgotPassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000;
     await user.save();
     
-    const resetURL = `https://vercel.com/yancarlos-projects-79d3c2cd/viewcall-frontend/reset_password?token=${resetToken}`;
+    const resetURL = `https://viewcall-frontend.vercel.app/reset_password?token=${resetToken}`;
     //const resetURL = `http://localhost:5173/reset_password?token=${resetToken}`;
     
     const msg = {
