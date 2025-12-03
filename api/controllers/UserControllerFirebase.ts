@@ -20,35 +20,27 @@ if (SENDGRID_API_KEY) {
  */
 const sendPasswordResetEmail = async (to: string, username: string, resetLink: string) => {
   const html = `
-  <div style="font-family: Arial, sans-serif; background: #f7f7f7; padding: 40px;">
-    <div style="max-width: 600px; background: white; margin: auto; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
-      <h2 style="color: #121212;">Hola ${username || "Usuario"},</h2>
-      <p style="font-size: 16px; color: #555;">
-        Has solicitado restablecer tu contraseña. Haz clic en el siguiente botón:
-      </p>
+  <div>
+    <h2>Hola ${username || "Usuario"},</h2>
 
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="${resetLink}"
-           style="
-             display: inline-block;
-             background: #2b6cb0;
-             color: white;
-             padding: 14px 22px;
-             border-radius: 8px;
-             text-decoration: none;
-             font-size: 16px;">
-          Restablecer contraseña
-        </a>
-      </div>
+    <p>
+      Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:
+    </p>
 
-      <p style="color: #555;">Si no solicitaste este cambio, simplemente ignora este mensaje.</p>
+    <p>
+      <a href="${resetLink}">Restablecer contraseña</a>
+    </p>
 
-      <p style="margin-top: 40px; color: #888; font-size: 13px;">
-        — Equipo Plataforma Meet
-      </p>
-    </div>
+    <p>
+      Si no solicitaste este cambio, simplemente ignora este mensaje.
+    </p>
+
+    <p>
+      — Equipo Plataforma VIEWCALL
+    </p>
   </div>
-  `;
+`;
+
 
   const msg = {
     to,
@@ -126,7 +118,7 @@ export class UserController {
       );
 
       const payload = await response.json().catch(() => null);
-      
+
       if (!response.ok) {
         const message =
           payload?.error?.message === "INVALID_PASSWORD"
@@ -268,7 +260,7 @@ export class UserController {
 
       const user = await UserDAO.findByEmail(email);
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "Email no encontrado" });
       }
 
       const link = await firebaseAuth().generatePasswordResetLink(email);
@@ -276,7 +268,7 @@ export class UserController {
       await sendPasswordResetEmail(email, user.username, link);
 
       return res.json({
-        message: "Reset email sent successfully",
+        message: "Restablecer correo electrónico enviado correctamente",
       });
     } catch (error: any) {
       console.error("Error en requestPasswordReset:", error);
@@ -292,7 +284,7 @@ export class UserController {
    */
   async resetPassword(req: Request, res: Response) {
     return res.status(400).json({
-      message: "Password reset handled automatically by Firebase email link",
+      message: "El restablecimiento de contraseña se gestiona automáticamente mediante el enlace de correo electrónico de Firebase",
     });
   }
 }
