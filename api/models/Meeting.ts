@@ -5,8 +5,6 @@ export interface IMeeting {
   id: string; // Firestore document ID
   ownerId: string; // UID of the user who created the meeting
   title: string;
-  date: string; // YYYY-MM-DD
-  time: string; // HH:mm
   createdAt: string;
   updatedAt: string;
 }
@@ -28,8 +26,6 @@ export const createMeetingData = (
     id: "", // Filled by the DAO when persisting
     ownerId,
     title: data.title ?? "",
-    date: data.date ?? now.split("T")[0],
-    time: data.time ?? "00:00",
     createdAt: now,
     updatedAt: now,
   };

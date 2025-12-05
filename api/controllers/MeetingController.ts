@@ -17,16 +17,16 @@ export class MeetingController {
   async createMeeting(req: AuthRequest, res: Response) {
     try {
       const hostId = req.userId!;
-      const { title, date, time  } = req.body;
+      const { title } = req.body;
 
-      if (!title || !date || !time) {
+      if (!title ) {
         return res.status(400).json({
           message: "title, date, time and duration are required",
         });
       }
       
       const meetingData = createMeetingData(
-        { title, date, time },
+        { title},
         hostId
       );
 
